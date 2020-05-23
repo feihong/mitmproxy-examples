@@ -17,3 +17,9 @@ Run
 ```
 mitmdump -ns export_mp3_addon.py -r dumpfile
 ```
+
+Run
+
+```
+python3 assemble_mp3_files.py
+```
