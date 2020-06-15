@@ -4,11 +4,9 @@ from pathlib import Path
 import subprocess
 from io import StringIO
 from lxml import etree
-from pyquery import pyquery
+from pyquery import PyQuery
 
 
-title = sys.argv[1]
-author = sys.argv[2]
 
 
 def get_files():
@@ -18,18 +16,19 @@ def get_files():
 
 
 def get_file_key(file_):
-  match = re.match(r'.+text_(\d+).mp3', str(file_))
+  match = re.match(r'text_(\d+)\.html', str(file_))
   if match:
     return int(match.group(1))
   else:
     return None  # shouldn't happen
 
 
-sio = StringIO(f"""\
+sio = StringIO()
+sio.write("""\
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>{title} - {author}</title>
+    <title>Book</title>
   </head>
   <body>
 """)
@@ -39,20 +38,9 @@ for file_ in get_files():
 
   doc = PyQuery(filename=file_)
   content = doc('.readercontent-inner')[0]
-  sio.write(etree.tostring(content) + '\n\n')
-
-  # sio.write(file_.read_text())
+  content_string = etree.tostring(content, method='xml', encoding='unicode')
+  sio.write(content_string + '\n\n<hr>\n\n')
 
 sio.write("\n\n</body></html>")
 output_file = Path('output.html')
 output_file.write_text(sio.getvalue())
-
-# cmd = [
-#   'ebook-convert',
-#   'output.html',
-#   title + '.mobi',
-#   '--title', title,
-#   '--authors', author,
-#   '--chapter', "//*[name()='h1' or name()='h2']"
-# ]
-# subprocess.call(cmd)

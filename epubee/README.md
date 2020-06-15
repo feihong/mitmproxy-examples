@@ -21,5 +21,7 @@ mitmdump -ns export_html_addon.py -r dumpfile
 Run
 
 ```
-python3 assemble_book.py
+pipenv shell
+pipenv install
+python3 assemble_book.py title author
 ```
