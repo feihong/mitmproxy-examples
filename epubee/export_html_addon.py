@@ -4,6 +4,7 @@ from pathlib import Path
 import mitmproxy.http
 from mitmproxy import ctx
 
+
 class ExportHtmlFiles:
   def response(self, flow: mitmproxy.http.HTTPFlow):
     """
