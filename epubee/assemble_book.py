@@ -39,7 +39,7 @@ for file_ in get_files():
   doc = PyQuery(filename=file_)
   content = doc('.readercontent-inner')[0]
   content_string = etree.tostring(content, method='xml', encoding='unicode')
-  sio.write(content_string + '\n\n<hr>\n\n')
+  sio.write(content_string + '\n\n')
 
 sio.write("\n\n</body></html>")
 output_file = Path('output.html')

@@ -10,7 +10,7 @@ class ExportHtmlFiles:
     """
     The full HTTP response has been read.
     """
-    match = re.search(r'\/text(\d{5})\.html', flow.request.path)
+    match = re.search(r'(\d{3,5})\.html', flow.request.path)
     if match:
       num = match.group(1)
       output_path = f'text_{num}.html'
