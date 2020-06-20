@@ -7,8 +7,6 @@ from lxml import etree
 from pyquery import PyQuery
 
 
-
-
 def get_files():
   names = list(Path('.').glob('text_*.html'))
   names.sort(key=get_file_key)
@@ -25,12 +23,14 @@ def get_file_key(file_):
 
 sio = StringIO()
 sio.write("""\
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-    <title>Book</title>
-  </head>
-  <body>
+<head>
+<meta charset="utf-8" />
+<title>Book</title>
+</head>
+<body>
+
 """)
 
 for file_ in get_files():
@@ -44,3 +44,4 @@ for file_ in get_files():
 sio.write("\n\n</body></html>")
 output_file = Path('output.html')
 output_file.write_text(sio.getvalue())
+print('\nGenerated output.html')

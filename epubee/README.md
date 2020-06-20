@@ -23,5 +23,5 @@ Run
 ```
 pipenv shell
 pipenv install
-python3 assemble_book.py title author
+python3 assemble_book.py
 ```
