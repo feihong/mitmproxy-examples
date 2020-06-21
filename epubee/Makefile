@@ -11,4 +11,4 @@ convert:
 	python3 convert.py
 
 clean:
-	rm dumpfile && rm *.html && rm *.mobi
+	rm dumpfile && rm *.html

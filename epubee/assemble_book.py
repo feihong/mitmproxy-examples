@@ -28,6 +28,7 @@ sio.write("""\
 <head>
 <meta charset="utf-8" />
 <title>Book</title>
+<author></author>
 </head>
 <body>
 

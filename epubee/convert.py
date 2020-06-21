@@ -39,11 +39,12 @@ with open('output.html', 'r', encoding='utf8') as fp:
 file_title = parser.title.split(' / ')[0] + '.mobi'
 
 cmd = [
-  'ebook-convert',
+  '/Applications/calibre.app/Contents/MacOS/ebook-convert',
   'output.html',
   file_title,
   '--title', parser.title,
   '--authors', parser.author,
   '--chapter', "//*[name()='h1' or name()='h2']"
+  # '--chapter', "//*[starts-with(@id, 'toc-anchor')]"
 ]
 subprocess.call(cmd)
