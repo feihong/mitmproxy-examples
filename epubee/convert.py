@@ -44,7 +44,7 @@ cmd = [
   file_title,
   '--title', parser.title,
   '--authors', parser.author,
-  '--chapter', "//*[name()='h1' or name()='h2']"
-  # '--chapter', "//*[starts-with(@id, 'toc-anchor')]"
+  '--chapter', "//*[name()='h1' or name()='h2']",
+  # '--chapter', "//*[starts-with(@id, 'toc-anchor')]",
 ]
 subprocess.call(cmd)
