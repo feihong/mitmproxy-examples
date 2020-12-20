@@ -2,4 +2,4 @@
 __pycache__
 
 dumpfile
-*.mp3
+dumpfile.db
