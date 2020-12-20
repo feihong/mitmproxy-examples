@@ -36,22 +36,32 @@ CREATE TABLE dump (
   path text,
   content_type text,
   xhash text,
-  request_body text,
+  ep_id text,
   data blob
 )
 ```
 
-Data structure
+Data structures
 
-```javascript
-comic: {
-  title: s,
-  episodes: [
-    {
-      id: i,
-      title: s,
-      images: [list_of_xhash]
-    }
-  ]
-]
 ```
+episodes: {
+  [id]: {
+    comicTitle: s,
+    title: s,
+    images: [xhash],
+    complete: t,
+  }
+}
+
+episode: {
+  id: i,
+  images: [xhash],
+}
+```
+
+Algorithm
+
+1. Iterate over ComicDetail to build map of episode metadata
+1. Iterate over GetImageIndex to get all episodes and their respective image hashes
+   1. Iterate over all image hashes to get all images
+1. Generate ZIP file with title format: "{comic title} {episode title} ({number of images}).cbz"
