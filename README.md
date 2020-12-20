@@ -2,17 +2,25 @@
 
 `mitmproxy` is an HTTPS proxy, here we collect a few examples of its usage.
 
-## Installation
+## Prerequisites
 
-```
-brew install mitmproxy
-```
+    brew install python
+    pip3 install pipenv
+
+## Install
+
+    pipenv shell
+    pipenv install
 
 Upgrade
 
-    brew upgrade mitmproxy
+    pipenv update
 
 ## Commands
+
+Start web interface (will open window in default browser automatically)
+
+    mitmweb
 
 Start proxy, dump downloaded files in `dumpfile`, don't cache:
 
