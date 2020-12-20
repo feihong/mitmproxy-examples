@@ -3,6 +3,8 @@ Dump flows into sqlite database so that you can randomly access them.
 """
 import os.path
 from pathlib import Path
+from urllib.parse import parse_qs
+import json
 import sqlite3
 import typing
 
@@ -15,7 +17,7 @@ CREATE TABLE dump (
   path text,
   content_type text,
   xhash text,
-  request_body text,
+  ep_id text,
   data blob
 )"""
 
@@ -37,13 +39,19 @@ class SqliteAddon:
           res = flow.response
           content_type = res.headers.get('content-type')
           if content_type:
+            ep_id = ''
+            try:
+              request_params = parse_qs(flow.request.content.decode('utf-8'))
+              ep_id = request_params['ep_id'][0]
+            except:
+              pass
             self.cur.execute(
               'INSERT INTO dump VALUES (?, ?, ?, ?, ?)',
               (
                 flow.request.path,
                 content_type,
                 res.headers.get('x-hash'),
-                flow.request.content,
+                ep_id,
                 res.content,
               )
             )
