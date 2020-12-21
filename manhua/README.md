@@ -23,22 +23,30 @@ Use [DB Browser for SQLite](https://sqlitebrowser.org/) to view database content
   - Always requested when user starts reading new chapter
 - GetImageIndex
   - Tells you order images come in as well as their size
+  - Episode id is in `data.path`, format is `/bfs/manga/{manga_id}/{episode_id}/data.index`
   - Episode id is in request POST param ep_id
   - Ignore those where `data.msg == 'Need buy episode'`
   - Paths in `data.images[].path`
 - Webp images (generally larger than 100kb)
-  - Header `X-Hash` set to `path` from `GetImageIndex` that looks like `/bfs/manga/{hash}.jpg`
+  - Path starts with `path` from `GetImageIndex` that looks like `/bfs/manga/{hash}.jpg`
 
 SQL table
+
+You don't strictly need the `request_params` column, but not having it makes the table harder to search for
+`GetImageIndex` rows since you cannot run JSON functions on blob columns like `data`.
 
 ```
 CREATE TABLE dump (
   path text,
-  content_type text,
-  xhash text,
-  ep_id text,
+  request_params text,
   data blob
-)
+);
+
+select * from dump
+where path like '%GetImageIndex' and json_extract(data, '$.ep_id') = '312836';
+
+select * from dump
+where path like '/bfs/manga/ac82935150afc0e23f39204da0ac545473458d25.jpg%';
 ```
 
 Data structures

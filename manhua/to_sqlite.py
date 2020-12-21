@@ -3,7 +3,7 @@ Dump flows into sqlite database so that you can randomly access them.
 """
 import os.path
 from pathlib import Path
-from urllib.parse import parse_qs
+from urllib.parse import parse_qsl
 import json
 import sqlite3
 import typing
@@ -15,9 +15,7 @@ filename = 'dumpfile.db'
 create_table_statement = """
 CREATE TABLE dump (
   path text,
-  content_type text,
-  xhash text,
-  ep_id text,
+  request_params text,
   data blob
 )"""
 
@@ -36,25 +34,22 @@ class SqliteAddon:
         """
         try:
           # ctx.log.info(flow.request.path)
+          req = flow.request
           res = flow.response
-          content_type = res.headers.get('content-type')
-          if content_type:
-            ep_id = ''
+          request_params = None
+          if req.headers.get('content-type') == 'application/x-www-form-urlencoded':
             try:
-              request_params = parse_qs(flow.request.content.decode('utf-8'))
-              ep_id = request_params['ep_id'][0]
+              request_params = json.dumps(dict(parse_qsl(flow.request.content.decode('utf-8'))))
             except:
               pass
-            self.cur.execute(
-              'INSERT INTO dump VALUES (?, ?, ?, ?, ?)',
-              (
-                flow.request.path,
-                content_type,
-                res.headers.get('x-hash'),
-                ep_id,
-                res.content,
-              )
+          self.cur.execute(
+            'INSERT INTO dump VALUES (?, ?, ?)',
+            (
+              flow.request.path,
+              request_params,
+              res.content,
             )
+          )
         except Exception as e:
           ctx.log.error(str(e))
 
