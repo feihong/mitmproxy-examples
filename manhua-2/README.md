@@ -29,13 +29,19 @@ Key requests
   - Example: `1_2896.jpg?cid=156436`
   - `cid` matches `mangaSectionId`
 
-SQL table
+SQL
 
 ```
 CREATE TABLE dump (
   path text,
   data blob
-)
+);
+
+select * from dump
+where path like '%getSectionDownloadInfo%';
+
+select * from dump
+where path like '%/1_2896.jpg%';
 ```
 
 Data structures

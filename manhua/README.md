@@ -30,7 +30,7 @@ Use [DB Browser for SQLite](https://sqlitebrowser.org/) to view database content
 - Webp images (generally larger than 100kb)
   - Path starts with `path` from `GetImageIndex` that looks like `/bfs/manga/{hash}.jpg`
 
-SQL table
+SQL
 
 You don't strictly need the `request_params` column, but not having it makes the table harder to search for
 `GetImageIndex` rows since you cannot run JSON functions on blob columns like `data`.
@@ -42,8 +42,9 @@ CREATE TABLE dump (
   data blob
 );
 
+-- You don't even need to use json_extract
 select * from dump
-where path like '%GetImageIndex' and json_extract(data, '$.ep_id') = '312836';
+where path like '%GetImageIndex' and request_params like '%"ep_id": "312836",%'
 
 select * from dump
 where path like '/bfs/manga/ac82935150afc0e23f39204da0ac545473458d25.jpg%';
