@@ -1,3 +1,5 @@
+## Instructions
+
 Start proxy
 
     mitmdump -w dumpfile
@@ -6,9 +8,9 @@ Examine requests visually
 
     mitmweb -r dumpfile
 
-Convert to sqlite database file
+Convert to sqlite database file and extract images into cbz files
 
-    mitmdump -ns to_sqlite.py -r dumpfile
+    ./run.sh
 
 Use [DB Browser for SQLite](https://sqlitebrowser.org/) to view database contents
 

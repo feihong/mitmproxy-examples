@@ -35,7 +35,7 @@ class SqliteAddon:
           # ctx.log.info(flow.request.path)
           res = flow.response
           self.cur.execute(
-            'INSERT INTO dump VALUES (?, ?, )',
+            'INSERT INTO dump VALUES (?, ?)',
             (
               flow.request.path,
               res.content,
