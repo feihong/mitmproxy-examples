@@ -13,7 +13,7 @@ where path like '%GetImageIndex';
 """)
 
 comics = {}
-episodes = []
+episodes = {}
 
 for row in cur.fetchall():
   obj = json.loads(row[0])
@@ -23,11 +23,14 @@ for row in cur.fetchall():
   match = re.match(r"/bfs/manga/(\d+)/(\d+)", episode['path'])
   comic_id = match.group(1)
   episode['comic_id'] = comic_id
-  episode['id'] = int(match.group(2))
-  episodes.append(episode)
+  episode_id = int(match.group(2))
+  episode['id'] = episode_id
+  episodes[episode_id] = episode
+  # print(f'{comid_id} {episode_id}')
 
-  # print(f'{episode["comic_id"]} {episode["id"]}')
+episodes = episodes.values()
 
+for episode in episodes:
   comic = comics.get(comic_id)
   if comic is None:
     cur.execute(f"""
