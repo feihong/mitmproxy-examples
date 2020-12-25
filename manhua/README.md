@@ -6,9 +6,9 @@ Examine requests visually
 
     mitmweb -r dumpfile
 
-Convert to sqlite database file
+Convert to sqlite database file and generate cbz files
 
-    mitmdump -ns to_sqlite.py -r dumpfile
+    ./run.sh
 
 Use [DB Browser for SQLite](https://sqlitebrowser.org/) to view database contents
 
@@ -42,9 +42,11 @@ CREATE TABLE dump (
   data blob
 );
 
--- You don't even need to use json_extract
 select * from dump
-where path like '%GetImageIndex' and request_params like '%"ep_id": "312836",%'
+where path like path like '%GetImageIndex';
+
+select * from dump
+where path like '%ComicDetail' and request_params like '%"comic_id": "26505"%';
 
 select * from dump
 where path like '/bfs/manga/ac82935150afc0e23f39204da0ac545473458d25.jpg%';
@@ -70,7 +72,9 @@ episode: {
 
 Algorithm
 
-1. Iterate over ComicDetail to build map of episode metadata
-1. Iterate over GetImageIndex to get all episodes and their respective image hashes
+1. Iterate over GetImageIndex to get episodes metadata
+   1. Ignore those whose msg value is not empty
+   1. Extract comid id and episode id from path
+   1. Search for ComicDetail with the given comic id to get full comic and episode metadata
    1. Iterate over all image hashes to get all images
 1. Generate ZIP file with title format: "{comic title} {episode title} ({number of images}).cbz"
