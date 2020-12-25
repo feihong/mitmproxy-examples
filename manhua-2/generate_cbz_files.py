@@ -10,14 +10,16 @@ cur.execute("""
 select data from dump
 where path like '%getSectionDownloadInfo%'""")
 
-sections = []
+sections = {}
 
 for row in cur.fetchall():
   obj = json.loads(row[0])
   section = obj['response']['sectionItem']
-  sections.append(section)
+  sections[section['mangaSectionId']] = section
 
   print(f'{section["mangaName"]} {section["mangaSectionName"]} {section["mangaSectionTitle"]}')
+
+sections = sections.values()
 
 for section in sections:
   is_complete = True
