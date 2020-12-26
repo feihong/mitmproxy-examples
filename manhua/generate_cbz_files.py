@@ -40,10 +40,10 @@ for episode in episodes:
     comic = json.loads(cur.fetchone()[0])['data']
     comic[comic_id] = comic
 
-  episode_detail = [ep for ep in comic['ep_list'] if ep['id'] == episode['id']][0]
-  episode['detail'] = episode_detail
+  detail = [ep for ep in comic['ep_list'] if ep['id'] == episode['id']][0]
+  episode['detail'] = detail
 
-  # print(f'{comic["title"]} {episode_detail["title"]}')
+  # print(f'{comic["title"]} {detail["title"]}')
 
   is_complete = True
   images = []
@@ -60,7 +60,7 @@ for episode in episodes:
   warning = ''
   if len(images) < len(episode['images']):
     warning = f", should be {len(episode['images'])}"
-  output_file = f"{comic['title']} {episode_detail['title']}({len(images)}{warning}).cbz"
+  output_file = f"{comic['title']} {detail['short_title']} {detail['title']}({len(images)}{warning}).cbz"
   with ZipFile(output_file, 'w') as zf:
     for i, data in enumerate(images, 1):
       zf.writestr(f'{i:03}.jpg', data, compress_type=ZIP_STORED)
