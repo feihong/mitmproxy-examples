@@ -57,7 +57,10 @@ for episode in episodes:
     except:
       is_complete = False
 
-  output_file = f'{comic["title"]} {episode_detail["title"]}{"" if is_complete else " (NOT COMPLETE)"}.cbz'
+  warning = ''
+  if len(images) < len(episode['images']):
+    warning = f", should be {len(episode['images'])}"
+  output_file = f"{comic['title']} {episode_detail['title']}({len(images)}{warning}).cbz"
   with ZipFile(output_file, 'w') as zf:
     for i, data in enumerate(images, 1):
       zf.writestr(f'{i:03}.jpg', data, compress_type=ZIP_STORED)
