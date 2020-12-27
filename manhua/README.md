@@ -1,12 +1,15 @@
 ## Instructions
 
-Start proxy
+1. Clear app cache. Go to My stuff > Settings and click Delete temporary files.
+1. Start proxy
 
-    mitmdump -w dumpfile
+   python proxy.py
 
-Convert to sqlite database file and generate cbz files
+1. Set your phone to use proxy. Go to <Name of Wifi network> (i) -> Configure proxy -> Manual, enter the server and port, and hit Save.
+1. Browse some episodes inside the app.
+1. Convert to sqlite database file and generate cbz files
 
-    ./run.sh
+   ./process.sh
 
 ## Analysis
 
