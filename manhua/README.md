@@ -2,14 +2,15 @@
 
 1. Clear app cache. Go to My stuff > Settings and click Delete temporary files.
 1. Start proxy
-
+   ```
    python proxy.py
-
-1. Set your phone to use proxy. Go to <Name of Wifi network> (i) -> Configure proxy -> Manual, enter the server and port, and hit Save.
+   ```
+1. Set your phone to use proxy. Go to "Name of Wifi network ℹ️" -> Configure proxy -> Manual, enter the server and port, and hit Save.
 1. Browse some episodes inside the app.
 1. Convert to sqlite database file and generate cbz files
-
+   ```
    ./process.sh
+   ```
 
 ## Analysis
 
@@ -80,7 +81,6 @@ episode: {
 Algorithm
 
 1. Iterate over GetImageIndex to get episodes metadata
-   1. Ignore those whose msg value is not empty
    1. Extract comid id and episode id from path
    1. Search for ComicDetail with the given comic id to get full comic and episode metadata
    1. Iterate over all image hashes to get all images
