@@ -40,7 +40,12 @@ for episode in episodes:
     comic = json.loads(cur.fetchone()[0])['data']
     comic[comic_id] = comic
 
-  detail = [ep for ep in comic['ep_list'] if ep['id'] == episode['id']][0]
+  try:
+    detail = [ep for ep in comic['ep_list'] if ep['id'] == episode['id']][0]
+  except IndexError:
+    print(f'Could not find details for episode {episode["id"]}')
+    continue
+
   episode['detail'] = detail
 
   # print(f'{comic["title"]} {detail["title"]}')
