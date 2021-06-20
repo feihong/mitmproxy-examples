@@ -13,10 +13,15 @@ styles_dir.mkdir(parents=True, exist_ok=True)
 filename = 'dumpfile.db'
 conn = sqlite3.connect(filename)
 cur = conn.cursor()
-style_chunk = """<style>
+html_prefix = """<html>
+<body>
+<style>
 .programs { font-family: monospace; }
 </style>
 """
+html_suffix = """
+</body>
+</html>"""
 
 # Extract metadata files
 cur.execute("select data from dump where path like '/api/v1/book/%/'")
@@ -47,7 +52,7 @@ for row in cur.fetchall():
     r'"\1.html\2"',
     text,
   )
-  path.write_text(style_chunk + text)
+  path.write_text(html_prefix + text + html_suffix)
   print("Page:", path)
 
 # Extract styles

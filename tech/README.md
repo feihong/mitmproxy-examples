@@ -42,3 +42,5 @@ Use [DB Browser for SQLite](https://sqlitebrowser.org/) to view database content
   - CSS asset
 
 ## Algorithm
+
+    ebook-convert book/nav.html test.epub --title "Title of book"
