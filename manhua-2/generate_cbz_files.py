@@ -26,7 +26,7 @@ for section in sections:
 
   output_file = f'{section["mangaName"]} {section["mangaSectionName"]} {section["mangaSectionTitle"]}'.strip() + '.cbz'
 
-  images = []   # list of bytes
+  images = []   # list of bytestrings
   for image_path in section['mangaSectionImages']:
     cur.execute(f"""
     select data from dump

@@ -18,6 +18,10 @@ Upgrade
 
 ## Commands
 
+Upgrade mitmproxy
+
+    pipenv update mitmproxy
+
 Start web interface (will open window in default browser automatically)
 
     mitmweb
