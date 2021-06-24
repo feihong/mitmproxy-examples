@@ -4,7 +4,7 @@ from pathlib import Path
 import json
 
 
-book_dir = Path('book' if len(sys.argv) <= 1 else sys.argv[1])
+book_dir = Path('.' if len(sys.argv) <= 1 else sys.argv[1])
 meta = json.loads((book_dir / 'meta.json').read_bytes())
 cover_id = meta["opf_unique_identifier_type"][1:]
 
