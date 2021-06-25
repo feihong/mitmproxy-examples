@@ -4,11 +4,13 @@ from pathlib import Path
 import json
 
 
-book_dir = Path('.' if len(sys.argv) <= 1 else sys.argv[1])
-meta = json.loads((book_dir / 'meta.json').read_bytes())
-cover_id = meta["opf_unique_identifier_type"][1:]
+book_dir = Path('.') if Path('meta.json').exists() else Path('book')
 
-cover_image = book_dir / f'files/images/{cover_id}.jpg'
+start_file = book_dir / 'kindle_split_003.html'
+cover_image = book_dir / 'images/cover.jpg'
+
+meta = json.loads((book_dir / 'meta.json').read_bytes())
+
 if not cover_image.exists():
   print(f'Cover images does not exist: {cover_image}')
   sys.exit(1)
@@ -19,7 +21,7 @@ output_file = f'{title} - {authors}.epub'
 
 cmd = [
   'ebook-convert',
-  str(book_dir / 'nav.html'),
+  str(start_file),
   output_file,
   '--title', title,
   '--authors', authors,

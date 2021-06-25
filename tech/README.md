@@ -14,6 +14,15 @@
    ```
    python extract_files.py
    ```
+1. Change `create_ebooks.py` so that `start_file` and `cover_image` are correct for the given book
+1. Create epub from extracted files
+   ```
+   python create_ebook.py
+   ```
+1. Create tarball for archival
+   ```
+   python create_tarball.py
+   ```
 
 ## Analysis
 
