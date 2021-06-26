@@ -12,6 +12,12 @@ filename = 'dumpfile.db'
 conn = sqlite3.connect(filename)
 cur = conn.cursor()
 html_prefix = """<html>
+<head>
+<style>
+.ProgramCode, .EmphasisFontCategoryNonProportional { font-family: monospace; }
+body { font-size: 40px; }
+</style>
+</head>
 <body>
 """
 html_suffix = """
@@ -53,13 +59,13 @@ for row in cur.fetchall():
   text = data.decode('utf8')
   # Rewrite image links
   text = re.sub(
-    r'"https\:\/\/learning\.oreilly\.com\/api\/v2\/epubs\/urn\:orm\:book\:\d+\/files\/(.*?\.jpg)"',
+    r'"https\:\/\/learning\.oreilly\.com\/api\/v2\/epubs\/urn\:orm\:book\:\d+\/files\/images\/(.*?\.(?:jpg|png))"',
     r'"images/\1"',
     text,
   )
   # Rewrite page links
   text = re.sub(
-    r'"(.*?)\.xhtml(#.*)?"',
+    r'"(.*?)\.xhtml(#.*?)?"',
     r'"\1.html\2"',
     text,
   )
@@ -69,13 +75,23 @@ for row in cur.fetchall():
 # Extract images
 cur.execute(f"""
 select path, data from dump
-where path like '/api/v2/epubs/urn:orm:book:{book_id}/files/%.jpg'
+where path like '/api/v2/epubs/urn:orm:book:{book_id}/files/%'
 """)
 
 for row in cur.fetchall():
   path, data = row
-  path = images_dir / Path(path).name
-  path.write_bytes(data)
+  try:
+    relative_path = Path(path).relative_to(f'/api/v2/epubs/urn:orm:book:{book_id}/files/images/')
+  except:
+    continue
+  if relative_path.suffix not in ('.jpg', '.png'):
+    continue
+  path = images_dir / relative_path
+  try:
+    path.write_bytes(data)
+  except FileNotFoundError:
+    path.parent.mkdir(parents=True)
+    path.write_bytes(data)
   print("Image:", path)
 
 conn.close()

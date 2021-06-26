@@ -6,8 +6,8 @@ import json
 
 book_dir = Path('.') if Path('meta.json').exists() else Path('book')
 
-start_file = book_dir / 'kindle_split_003.html'
-cover_image = book_dir / 'images/cover.jpg'
+start_file = book_dir / '499545_1_En_BookFrontmatter_OnlinePDF.html'
+cover_image = book_dir / 'images/978-1-4842-6264-1_CoverFigure.jpg'
 
 meta = json.loads((book_dir / 'meta.json').read_bytes())
 
@@ -17,7 +17,7 @@ if not cover_image.exists():
 
 title = meta['title']
 authors = ' & '.join(item['name'] for item in meta['authors'])
-output_file = f'{title} - {authors}.epub'
+output_file = f'{title} - {authors}.pdf'
 
 # https://manual.calibre-ebook.com/generated/en/ebook-convert.html
 cmd = [
@@ -32,9 +32,9 @@ cmd = [
   '--isbn', meta['isbn'],
   '--pubdate', meta['issued'],
   '--tags', ', '.join(t['name'] for t in meta['topics']),
-  '--level1-toc', '//h:h2',
-  '--level2-toc', '//h:h3',
-  '--level3-toc', '//h:h4',
+  '--level1-toc', '//h:h1',
+  '--level2-toc', '//h:h2',
+  '--level3-toc', '//h:h3',
   '--breadth-first',
 ]
 subprocess.call(cmd)
