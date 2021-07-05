@@ -2,7 +2,7 @@
 
 1. Start proxy
    ```
-   mitmdump -w dumpfile
+   python proxy.py
    ```
 1. Examine requests visually
    ```
