@@ -1,16 +1,25 @@
 ## Instructions
 
-Start proxy
-
-    mitmdump -w dumpfile
-
-Examine requests visually
-
-    mitmweb -r dumpfile
-
-Convert to sqlite database file and extract images into cbz files
-
-    ./run.sh
+1. Start proxy
+   ```
+   mitmdump -w dumpfile
+   ```
+1. Examine requests visually
+   ```
+   mitmweb -r dumpfile
+   ```
+1. Convert to sqlite database file
+   ```
+   mitmdump -ns to_sqlite.py -r dumpfile
+   ```
+1. Extract images into directories
+   ```
+   python extract_files.py
+   ```
+1. Generate CBZ files
+   ```
+   python generate_cbz_files.py
+   ```
 
 Use [DB Browser for SQLite](https://sqlitebrowser.org/) to view database contents
 
@@ -33,7 +42,7 @@ Key requests
 
 SQL
 
-```
+```sql
 CREATE TABLE dump (
   path text,
   data blob
