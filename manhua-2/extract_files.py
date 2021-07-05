@@ -43,7 +43,7 @@ for section in sections:
     image_data = cur.fetchone()[0]
     if not output_dir.exists():
       output_dir.mkdir(parents=True)
-    (output_dir / 'meta.json').write_text(json.dumps(section, indent=2))
+    (output_dir / 'meta.json').write_text(json.dumps(section, indent=2, ensure_ascii=False))
     (output_dir / Path(image_name)).write_bytes(image_data)
 
   print(f'Wrote {len(image_names)} images to {output_dir}')
