@@ -7,9 +7,17 @@
    ```
 1. Set your phone to use proxy. Go to "Name of Wifi network ℹ️" -> Configure proxy -> Manual, enter the server and port, and hit Save.
 1. Browse some episodes inside the app.
-1. Convert to sqlite database file and generate cbz files
+1. Convert to sqlite database file
    ```
-   ./process.sh
+   make db
+   ```
+1. Generate CBZ files
+   ```
+   make cbz
+   ```
+1. Consolidate CBZ files into a single volume file
+   ```
+   make volume
    ```
 
 ## Analysis
