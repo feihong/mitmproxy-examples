@@ -4,7 +4,7 @@
    ```
    python proxy.py
    ```
-1. Examine requests visually
+1. Examine requests visually (optional)
    ```
    mitmweb -r dumpfile
    ```

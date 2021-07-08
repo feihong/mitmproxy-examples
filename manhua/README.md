@@ -3,7 +3,7 @@
 1. Clear app cache. Go to My stuff > Settings and click Delete temporary files.
 1. Start proxy
    ```
-   python proxy.py
+   make proxy
    ```
 1. Set your phone to use proxy. Go to "Name of Wifi network ℹ️" -> Configure proxy -> Manual, enter the server and port, and hit Save.
 1. Browse some episodes inside the app.
