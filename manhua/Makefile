@@ -9,3 +9,6 @@ cbz:
 
 volume:
 	echo "not implemented"
+
+clean:
+	rm dumpfile && rm dumpfile.db

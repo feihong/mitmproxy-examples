@@ -67,7 +67,9 @@ for episode in episodes:
   warning = ''
   if len(images) < len(episode['images']):
     warning = f", should be {len(episode['images'])}"
-  output_file = f"{comic['title']} {detail['short_title']} {detail['title']} ({len(images)}{warning}).cbz"
+
+  title = ' '.join(s.strip() for s in [comic['title'], detail['short_title'], detail['title']] if s.strip())
+  output_file = f"{title} ({len(images)}{warning}).cbz"
 
   with ZipFile(output_file, 'w') as zf:
     for i, data in enumerate(images, 1):
