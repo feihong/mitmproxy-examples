@@ -9,7 +9,6 @@
 
 ## Install
 
-    pipenv shell
     pipenv install
 
 Upgrade
