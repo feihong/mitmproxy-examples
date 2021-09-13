@@ -50,7 +50,7 @@ for episode in episodes:
 
   episode['detail'] = detail
 
-  # print(f'{comic["title"]} {detail["title"]}')
+  chapter = f'{comic["title"]} {detail["title"]}'
 
   is_complete = True
   images = []
@@ -60,7 +60,14 @@ for episode in episodes:
     where path like '{image["path"]}%';
     """)
     try:
-      images.append(cur.fetchone()[0])
+      data = None
+      for (blob,) in cur.fetchall():
+        if blob is not None:
+          data = blob
+      if data is None:
+        print(f'No data found for {chapter} {image["path"]}')
+      else:
+        images.append(data)
     except:
       is_complete = False
 
@@ -73,7 +80,8 @@ for episode in episodes:
 
   with ZipFile(output_file, 'w') as zf:
     for i, data in enumerate(images, 1):
-      zf.writestr(f'{i:03}.jpg', data, compress_type=ZIP_STORED)
+      image_file = f'{i:03}.jpg'
+      zf.writestr(image_file, data, compress_type=ZIP_STORED)
 
   print(f'Wrote {len(images)} images to {output_file}')
 
