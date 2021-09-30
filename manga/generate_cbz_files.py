@@ -8,7 +8,7 @@ filename = 'dumpfile.db'
 conn = sqlite3.connect(filename)
 cur = conn.cursor()
 
-manga_title = None
+manga_title = 'Unknown'
 cur.execute("select path, data from dump where path like '/manga/%';")
 for (path, data) in cur.fetchall():
   if 'feed' in path:
