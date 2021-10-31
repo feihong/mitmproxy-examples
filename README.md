@@ -4,22 +4,18 @@
 
 ## Prerequisites
 
-    brew install python
-    pip3 install pipenv
+    pyenv install 3.10.0
+    pyenv global 3.10.0
 
 ## Install
 
-    pipenv install
-
-Upgrade
-
-    pipenv update
+    make install
 
 ## Commands
 
-Upgrade mitmproxy
+Upgrade mitmproxy:
 
-    pipenv update mitmproxy
+    make upgrade
 
 Start web interface (will open window in default browser automatically)
 
@@ -34,3 +30,5 @@ Run `script.py` on contents of `dumpfile`:
     mitmdump -ns script.py -r dumpfile
 
 ## Links
+
+- [mitmproxy docs](https://docs.mitmproxy.org/stable/)
