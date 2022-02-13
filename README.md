@@ -4,10 +4,22 @@
 
 ## Prerequisites
 
-    pyenv install 3.10.0
-    pyenv global 3.10.0
+### Linux
 
-## Install
+    curl -L https://github.com/pyenv/pyenv-installer/raw/master/bin/pyenv-installer | bash
+    # Update ~/.profile and ~/.bashrc according to instructions, then logout and login
+
+### Mac
+
+    brew install pyenv
+
+### Python
+
+    pyenv install --list # list all versions you can install
+    pyenv install 3.10.2
+    pyenv global 3.10.2
+
+## Installation
 
     make install
 
