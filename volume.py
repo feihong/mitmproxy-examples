@@ -17,25 +17,24 @@ comic_title = None
 def get_cbz_files():
   global comic_title
 
+  # Return files sorted by name
   for file in sorted(input_dir.glob('*.cbz')):
+    if re.search(r'第\w+卷', file.stem):
+      continue
+
     title = file.stem.split(' ')[0]
     if comic_title is None:
       comic_title = title
+      print(comic_title)
     else:
       assert comic_title == title, f'Comic title is {comic_title}, which does not match {title}'
 
-    if re.search(r'第\w+卷', file.name):
-      continue
-    else:
-      yield file
+    yield file
 
 print(f'Comic title is {comic_title}\n')
 
-# Sort cbz files by modification time (st_ctime_ns doesn't work)
-cbz_files = sorted(get_cbz_files(), key=lambda p: p.stat().st_mtime_ns)
-
 # Return generator of bytes objects
-def get_images():
+def get_images(cbz_files):
   for cbz_file in cbz_files:
     print(cbz_file)
     with ZipFile(cbz_file, 'r') as zf:
@@ -44,7 +43,11 @@ def get_images():
           print(f'  {name}')
           yield zf.read(name)
 
-images = get_images()
+
+cbz_files = list(get_cbz_files())
+# Sort cbz files by modification time (st_ctime_ns doesn't work)
+# cbz_files = sorted(get_cbz_files(), key=lambda p: p.stat().st_mtime_ns)
+images = get_images(cbz_files)
 
 # Write all images to big cbz file
 output_file = input_dir / f'{comic_title} 第xxx卷.cbz'

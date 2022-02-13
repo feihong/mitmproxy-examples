@@ -11,12 +11,12 @@ def split_image(image, image_file):
   w = image['width']
   h = image['height']
 
-  subprocess.call([
+  subprocess.run([
     'magick', 'convert', str(image_file), '-crop',
     f'{w / 2}x{h}+0+0',
     str(left_file),
   ])
-  subprocess.call([
+  subprocess.run([
     'magick', 'convert', str(image_file), '-crop',
     f'{w / 2}x{h}+{w / 2}+0',
     str(right_file),
