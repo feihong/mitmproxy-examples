@@ -29,9 +29,9 @@ Upgrade mitmproxy:
 
     make upgrade
 
-Start web interface (will open window in default browser automatically)
+Start web interface to view contents of dump file (will open window in default browser automatically)
 
-    mitmweb
+    mitmweb -r dumpfile
 
 Start proxy, dump downloaded files in `dumpfile`, don't cache:
 
