@@ -18,7 +18,7 @@ class ExportMedia:
     if flow.response.content is None:
       return
 
-    if content_type == 'video/quicktime;charset=UTF-8':
+    if content_type in ('video/quicktime;charset=UTF-8', 'audio/mpeg'):
       output_file = Path(f'{self.count:03}.m4a')
       output_file.write_bytes(flow.response.content)
       self.count += 1
